@@ -100,7 +100,7 @@ if( y &lt; room_height - 200 &amp;&amp; yspd &lt; 0) yspd = -yspd;
 
 if( y &gt; room_height &amp;&amp; yspd &gt; 0) yspd = -yspd;
 
-if(x &lt; -sprite_width - 10) instance_destroy();
+if(x &lt; -abs(sprite_width) - 10) instance_destroy();
 </string>
           </argument>
         </arguments>

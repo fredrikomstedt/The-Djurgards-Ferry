@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>-10</depth>
+  <depth>-11</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -60,6 +60,45 @@ instance_create(240, 436, obj_player);
 
 //Create dynamical structures
 global.buoys = ds_list_create();
+
+//Keep score
+score_tick = 0;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Manage score
+//Update score
+if(score_tick == 60)
+{
+    if(!(obj_player.hurt || obj_player.dead))
+    {
+        score += 10;
+    }
+    score_tick = 0;
+}
+else
+{
+    score_tick++;
+}
 </string>
           </argument>
         </arguments>
@@ -107,7 +146,22 @@ ds_list_destroy(global.buoys);
           <argument>
             <kind>1</kind>
             <string>///Draws things onto the screen
+draw_set_halign(fa_center);
+draw_set_font(font_font);
 draw_sprite_ext(spr_more_water, 0, 0, 512, 100, 25, 0, c_white, 1);
+
+//Draw HUD
+draw_text(80, 16, "Health:");
+draw_text(room_width-180, 16, "Score: " + string(score));
+
+//Draw info if dead
+if(obj_player.dead)
+{
+    draw_set_alpha(.5);
+    draw_rectangle_colour(0, 0, room_width, room_height, c_white, c_white, c_white, c_white, false);
+    draw_set_alpha(1);
+    draw_text(room_width/2, room_height/3, "You are dead!#Wait " + string(round(obj_player.alarm[1]/60)) + " seconds to respawn.");
+}
 </string>
           </argument>
         </arguments>

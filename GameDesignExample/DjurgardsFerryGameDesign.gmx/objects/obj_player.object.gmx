@@ -32,11 +32,93 @@ grav = 1;
 spd = abs(global.water_speed)*5;
 acc = 2;
 rot = 0;
+alph = 1;
+
+life = 3;
+hurt = false;
+hurt_tick = 0;
+dead = false;
+hittable = true;
+
+ride_sprite = 0;
+player_sprite = 0;
 
 state = player_move_state;
 
 //Get input
 get_input();
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="2">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Can get smacked again
+hittable = true;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///No longer dead
+dead = false;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///No longer hurt
+hurt = false;
 </string>
           </argument>
         </arguments>
@@ -64,6 +146,82 @@ get_input();
 
 //Execute the state
 script_execute(state);
+
+//Draw according to variables
+image_alpha = alph;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="4" ename="obj_buoy">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Execute hurt state for three second
+if((!dead) &amp;&amp; hittable)
+{
+    life--;
+    if(life == 0)
+    {
+        dead = true;
+        state = player_dead_state;
+        alarm[1] = 900;
+    }
+    else
+    {
+        hurt = true;
+        state = player_hurt_state;
+        alarm[0] = 180;
+    }
+    
+    //Destroy buoy
+    with(other)
+    {
+        pos = ds_list_find_index(global.buoys, id);
+        ds_list_delete(global.buoys, pos);
+        instance_destroy();
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="4" ename="obj_boat">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///You dead sucka
+dead = true;
+state = player_dead_state;
+alarm[1] = 900;
 </string>
           </argument>
         </arguments>
@@ -89,7 +247,16 @@ script_execute(state);
             <string>///Draws the player onto the ride
 draw_self();
 
-draw_sprite_ext(spr_player, 0, x, y, 1, 1, rot ,c_white, 1);
+for(var i = 0; i &lt; 3; i++)
+{
+    draw_sprite_ext(spr_ride, ride_sprite, 96 + 112*i, 64, 1, 1, 0, c_dkgray, 1);
+    if(i &lt; life)
+    {
+        draw_sprite_ext(spr_ride, ride_sprite, 96 + 112*i, 64, 1, 1, 0, c_white, 1);
+    }
+}
+draw_sprite_ext(spr_player, player_sprite, x, y, 1, 1, rot ,c_white, alph);
+
 </string>
           </argument>
         </arguments>

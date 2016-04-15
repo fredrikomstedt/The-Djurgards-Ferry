@@ -4,7 +4,7 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>-9</depth>
-  <persistent>0</persistent>
+  <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -63,15 +63,15 @@ for(var i = 0; i &lt; size; i++)
     if(global.buoys[| i] != id)
     {
         other_x = global.buoys[| i].x;
-        if(abs(other_x - x) &lt; 160)
+        if(abs(other_x - x) &lt; 200)
         {
             if(other_x - x &lt; 0)
             {
-                x = other_x + 160;
+                x = other_x + 200;
             }
             else
             {
-                global.buoys[| i].x = x + 160;
+                global.buoys[| i].x = x + 200;
             }
         }
     }   

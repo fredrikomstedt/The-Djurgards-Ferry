@@ -29,7 +29,7 @@
 //Makes sure things don't stand still
 if(abs(global.water_speed) &gt;= 1)
 {
-    var i = 150;
+    var i = 200;
     if(irandom(i) == i)
     {
         instance_create(room_width+48, 436, obj_buoy);

@@ -30,6 +30,8 @@
   <scripts name="scripts">
     <scripts name="Player States">
       <script>scripts\player_move_state.gml</script>
+      <script>scripts\player_hurt_state.gml</script>
+      <script>scripts\player_dead_state.gml</script>
     </scripts>
     <scripts name="Helper scripts">
       <script>scripts\get_input.gml</script>
@@ -37,6 +39,9 @@
       <script>scripts\move.gml</script>
     </scripts>
   </scripts>
+  <fonts name="fonts">
+    <font>fonts\font_font</font>
+  </fonts>
   <objects name="objects">
     <object>objects\obj_controller</object>
     <objects name="Environment">
