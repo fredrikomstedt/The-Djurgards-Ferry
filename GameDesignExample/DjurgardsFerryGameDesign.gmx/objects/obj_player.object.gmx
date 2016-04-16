@@ -42,6 +42,10 @@ hittable = true;
 
 ride_sprite = 0;
 player_sprite = 0;
+torso_sprite = 0;
+legs_sprite = 0;
+hat_sprite = 0;
+sprite_xscale = image_xscale;
 
 state = player_move_state;
 
@@ -255,7 +259,10 @@ for(var i = 0; i &lt; 3; i++)
         draw_sprite_ext(spr_ride, ride_sprite, 96 + 112*i, 64, 1, 1, 0, c_white, 1);
     }
 }
-draw_sprite_ext(spr_player, player_sprite, x, y, 1, 1, rot ,c_white, alph);
+draw_sprite_ext(spr_player, player_sprite, x, y, sprite_xscale, 1, rot ,c_white, alph);
+draw_sprite_ext(spr_torso, torso_sprite, x, y, sprite_xscale, 1, rot ,c_white, alph);
+draw_sprite_ext(spr_legs, legs_sprite, x, y, sprite_xscale, 1, rot ,c_white, alph);
+draw_sprite_ext(spr_hat, hat_sprite, x, y, sprite_xscale, 1, rot ,c_white, alph);
 
 </string>
           </argument>

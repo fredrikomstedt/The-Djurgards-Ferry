@@ -19,8 +19,15 @@
       <sprite>sprites\spr_solid</sprite>
     </sprites>
     <sprites name="Player">
-      <sprite>sprites\spr_player</sprite>
-      <sprite>sprites\spr_ride</sprite>
+      <sprites name="Player">
+        <sprite>sprites\spr_player</sprite>
+        <sprite>sprites\spr_hat</sprite>
+        <sprite>sprites\spr_torso</sprite>
+        <sprite>sprites\spr_legs</sprite>
+      </sprites>
+      <sprites name="Ride">
+        <sprite>sprites\spr_ride</sprite>
+      </sprites>
     </sprites>
   </sprites>
   <backgrounds name="background">
@@ -37,6 +44,7 @@
       <script>scripts\get_input.gml</script>
       <script>scripts\apply_friction.gml</script>
       <script>scripts\move.gml</script>
+      <script>scripts\pythagorean.gml</script>
     </scripts>
   </scripts>
   <fonts name="fonts">

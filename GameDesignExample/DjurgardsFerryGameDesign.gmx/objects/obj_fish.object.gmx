@@ -93,6 +93,10 @@ image_xscale = sign(xspd);
 x += xspd + global.water_speed;
 y += yspd;
 
+//Set image speed according to speed
+spd = pythagorean(xspd, yspd);
+image_speed = spd/50;
+
 //Make sure fish stays in a good position
 if(x &gt; room_width+64 &amp;&amp; xspd &gt; 0) xspd = -xspd;
 
